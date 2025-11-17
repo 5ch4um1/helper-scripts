@@ -76,16 +76,8 @@ while (my $line = <$fh>) {
             # 3. Extract Rule ID and Message from Part H (Optional)
             # Initialize optional fields
             $rule_id = "";
-            $rule_msg = "";
 
-            # 3a. Extract the Rule Message (still needed to detect if Part H exists, but won't be displayed)
-            # Looks for "Message: " immediately following the --H-- boundary and captures the content.
-            if ($current_entry =~ /^--\S+-H--\s*\nMessage:\s*([^#\r\n]+)/msi) {
-                $rule_msg = $1;
-                # Clean up trailing whitespace
-                $rule_msg =~ s/\s+$//;
-            }
-            # 3b. Extract Rule ID (can appear anywhere after --H--)
+            # 3a. Extract Rule ID (can appear anywhere after --H--)
             # Looks for the [id ""] tag anywhere after the --H-- boundary.
             if ($current_entry =~ /^--\S+-H--.*?\[id\s+"(\d+)"\]/msi) {
                 $rule_id = $1;
